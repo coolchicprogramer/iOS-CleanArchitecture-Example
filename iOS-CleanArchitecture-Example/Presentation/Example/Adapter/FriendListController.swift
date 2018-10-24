@@ -21,6 +21,6 @@ struct FriendListController {
     }
     
     func loadFriendList() {
-        useCase.load()
+        useCase.loadAsInputBoundary()
     }
 }

@@ -18,7 +18,7 @@ protocol FriendListPresenterDelegate: class {
 final class FriendListPresenter: FriendListUseCaseInputDelegate {
     weak var delegate: FriendListPresenterDelegate?
     
-    func useCase(_ useCase: FriendListUseCase, didLoadFriendList friendList: [UserEntity]) {
+    func useCaseOutputBoundary(_ useCase: FriendListUseCase, didLoadFriendList friendList: [UserEntity]) {
         // UserEntity -> UserViewData に変換する。
         // 表示するのはフルネームなので、ここで苗字と名前を結合する。
         let users = friendList.map { UserViewData(id: $0.id, name: $0.name.full()) }

@@ -9,17 +9,17 @@
 import Foundation
 
 protocol FriendListUseCaseInput: class {
-    func load()
+    func loadAsInputBoundary()
 }
 
 protocol FriendListUseCaseInputDelegate: class {
-    func useCase(_ useCase: FriendListUseCase, didLoadFriendList friendList: [UserEntity])
+    func useCaseOutputBoundary(_ useCase: FriendListUseCase, didLoadFriendList friendList: [UserEntity])
 }
 
 // データ取得のためDataに求めるインタフェース
 protocol FriendListUseCaseDataInput: class {
     weak var delegate: FriendListUseCaseDataInputDelegate? { get set }
-    func load()
+    func loadAsDataAccessInterface()
 }
 
 // 依存方向をGateway->UseCaseにするためここに書く必要がある。
@@ -40,14 +40,14 @@ final class FriendListUseCase: FriendListUseCaseInput {
         self.input = input
     }
     
-    func load() {
-        input.load()
+    func loadAsInputBoundary() {
+        input.loadAsDataAccessInterface()
     }
 }
 
 // Gatewayからデータ取得した結果を受け取る。
 extension FriendListUseCase: FriendListUseCaseDataInputDelegate {
     func dataInput(_ dataInput: FriendListUseCaseDataInput, didLoadFriendList friendList: [UserEntity]) {
-        delegate?.useCase(self, didLoadFriendList: friendList)
+        delegate?.useCaseOutputBoundary(self, didLoadFriendList: friendList)
     }
 }

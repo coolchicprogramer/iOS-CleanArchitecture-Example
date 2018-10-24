@@ -30,7 +30,7 @@ final class FriendListGateway: FriendListUseCaseDataInput {
         self.input = input
     }
     
-    func load() {
+    func loadAsDataAccessInterface() {
         input.load()
     }
 }
